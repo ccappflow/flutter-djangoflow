@@ -7,15 +7,12 @@ import 'package:djangoflow_openapi/djangoflow_openapi.dart';
 import 'package:djangoflow_local_notification/src/blocs/local_notification_state.dart';
 export 'local_notification_state.dart';
 
-typedef PresentableNotificationCallBack = Future<NotificationDetails?>
-    Function();
+typedef PresentableNotificationCallBack = Future<NotificationDetails?> Function();
 
-class LocalNotificationCubit extends Cubit<LocalNotificationState>
-    with SafeEmitMixin<LocalNotificationState> {
+class LocalNotificationCubit extends Cubit<LocalNotificationState> with SafeEmitMixin<LocalNotificationState> {
   LocalNotificationCubit._internal() : super(const LocalNotificationState());
   static LocalNotificationCubit get instance => _instance;
-  static final LocalNotificationCubit _instance =
-      LocalNotificationCubit._internal();
+  static final LocalNotificationCubit _instance = LocalNotificationCubit._internal();
 
   NotificationInitializer? notificationInitializer;
 
@@ -31,18 +28,6 @@ class LocalNotificationCubit extends Cubit<LocalNotificationState>
             pushActions: pushActions,
             defaultAndroidNotificationIcon: defaultAndroidNotificationIcon,
             forceInitialize: forceInitialize,
-            onDidReceiveLocalNotification: (id, title, body, payload) {
-              emit(
-                state.copyWith(
-                  notificationResponse: NotificationResponse(
-                    id: id,
-                    payload: payload,
-                    notificationResponseType:
-                        NotificationResponseType.selectedNotification,
-                  ),
-                ),
-              );
-            },
             onDidReceiveNotificationResponse: (details) {
               emit(
                 state.copyWith(
@@ -76,11 +61,9 @@ class LocalNotificationCubit extends Cubit<LocalNotificationState>
     );
   }
 
-  Future<NotificationAppLaunchDetails?>
-      checkAndUpdateAppLaunchNotification() async {
-    final intialNotificationTap = await notificationInitializer
-        ?.flutterLocalNotificationsPlugin
-        ?.getNotificationAppLaunchDetails();
+  Future<NotificationAppLaunchDetails?> checkAndUpdateAppLaunchNotification() async {
+    final intialNotificationTap =
+        await notificationInitializer?.flutterLocalNotificationsPlugin?.getNotificationAppLaunchDetails();
     if (intialNotificationTap?.didNotificationLaunchApp == true) {
       emit(
         state.copyWith(
@@ -95,7 +78,6 @@ class LocalNotificationCubit extends Cubit<LocalNotificationState>
   }
 
   Future<void> cancelNotification(String notificationId, {String? tag}) async {
-    await notificationInitializer?.flutterLocalNotificationsPlugin
-        ?.cancel(notificationId.hashCode, tag: tag);
+    await notificationInitializer?.flutterLocalNotificationsPlugin?.cancel(notificationId.hashCode, tag: tag);
   }
 }

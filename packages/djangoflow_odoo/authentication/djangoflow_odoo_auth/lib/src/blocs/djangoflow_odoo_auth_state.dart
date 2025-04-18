@@ -7,7 +7,7 @@ part 'djangoflow_odoo_auth_state.g.dart';
 enum AuthStatus { initial, unauthenticated, authenticated }
 
 @freezed
-class DjangoflowOdooAuthState with _$DjangoflowOdooAuthState {
+abstract class DjangoflowOdooAuthState with _$DjangoflowOdooAuthState {
   const factory DjangoflowOdooAuthState({
     @Default(AuthStatus.initial) AuthStatus status,
     String? errorMessage,
@@ -17,12 +17,10 @@ class DjangoflowOdooAuthState with _$DjangoflowOdooAuthState {
     List<String>? dbList,
   }) = _DjangoflowOdooAuthState;
 
-  factory DjangoflowOdooAuthState.fromJson(Map<String, dynamic> json) =>
-      _$DjangoflowOdooAuthStateFromJson(json);
+  factory DjangoflowOdooAuthState.fromJson(Map<String, dynamic> json) => _$DjangoflowOdooAuthStateFromJson(json);
 }
 
-class OdooSessionConverter
-    implements JsonConverter<OdooSession, Map<String, dynamic>> {
+class OdooSessionConverter implements JsonConverter<OdooSession, Map<String, dynamic>> {
   const OdooSessionConverter();
 
   @override

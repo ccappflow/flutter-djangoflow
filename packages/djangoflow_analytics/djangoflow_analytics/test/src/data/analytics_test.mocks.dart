@@ -4,7 +4,6 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:analytics/analytics.dart' as _i2;
-import 'package:analytics/core/analytic_action.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 import 'analytics_test.dart' as _i3;
@@ -28,19 +27,9 @@ import 'analytics_test.dart' as _i3;
 class MockAnalyticActionPerformer extends _i1.Mock
     implements _i2.AnalyticActionPerformer<_i3.TestAnalyticsAction> {
   @override
-  bool canHandle(_i4.AnalyticAction? action) => (super.noSuchMethod(
+  void performAction(_i3.TestAnalyticsAction? action) => super.noSuchMethod(
         Invocation.method(
-          #canHandle,
-          [action],
-        ),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  void perform(_i3.TestAnalyticsAction? action) => super.noSuchMethod(
-        Invocation.method(
-          #perform,
+          #performAction,
           [action],
         ),
         returnValueForMissingStub: null,

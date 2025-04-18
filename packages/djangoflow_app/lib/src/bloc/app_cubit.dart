@@ -10,7 +10,7 @@ part 'app_cubit.g.dart';
 enum AppEnvironment { live, sandbox }
 
 @freezed
-class AppState with _$AppState {
+abstract class AppState with _$AppState {
   // AppState should *only* contain fields that require MaterialApp re-building
   const factory AppState({
     @Default(true) bool firstRun,
@@ -19,8 +19,7 @@ class AppState with _$AppState {
     @Default(ThemeMode.light) ThemeMode themeMode,
   }) = _AppState;
 
-  factory AppState.fromJson(Map<String, dynamic> json) =>
-      _$AppStateFromJson(json);
+  factory AppState.fromJson(Map<String, dynamic> json) => _$AppStateFromJson(json);
 }
 
 class AppCubit extends HydratedCubit<AppState> {
@@ -43,9 +42,7 @@ class AppCubit extends HydratedCubit<AppState> {
 
   void toggleEnvironment() => emit(
         state.copyWith(
-          environment: state.environment == AppEnvironment.live
-              ? AppEnvironment.sandbox
-              : AppEnvironment.live,
+          environment: state.environment == AppEnvironment.live ? AppEnvironment.sandbox : AppEnvironment.live,
         ),
       );
 

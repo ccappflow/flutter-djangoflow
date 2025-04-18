@@ -8,12 +8,13 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  djangoflow_auth: ^0.6.0+1
   flutter:
     sdk: flutter
-  sign_in_with_apple: ^6.1.3
+  djangoflow_auth: any
+  sign_in_with_apple: any
 
 dev_dependencies:
-  flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
+    
+  flutter_lints: any

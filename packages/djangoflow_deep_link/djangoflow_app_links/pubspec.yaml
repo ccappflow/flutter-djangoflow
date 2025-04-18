@@ -7,14 +7,15 @@ environment:
   sdk: ">=3.4.0 <4.0.0"
 
 dependencies:
-  app_links: ^6.3.2
-  bloc_test: ^9.1.7
-  djangoflow_deep_link_interface: ^2.0.1
-  flutter_bloc: ^8.1.6
-  mockito: ^5.4.4
+  app_links: any
+  bloc_test: any
+  djangoflow_deep_link_interface: any
+  flutter_bloc: any
+  # To update check https://github.com/dart-lang/mockito/issues/812
+  mockito: 5.4.4
 
 dev_dependencies:
-  build_runner: ^2.4.13
-  flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
+  build_runner: any
+  flutter_lints: any

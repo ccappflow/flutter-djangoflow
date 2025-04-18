@@ -177,6 +177,7 @@ class MockFirebaseMessaging extends _i1.Mock implements _i4.FirebaseMessaging {
     bool? criticalAlert = false,
     bool? provisional = false,
     bool? sound = true,
+    bool? providesAppNotificationSettings = false,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -190,6 +191,7 @@ class MockFirebaseMessaging extends _i1.Mock implements _i4.FirebaseMessaging {
             #criticalAlert: criticalAlert,
             #provisional: provisional,
             #sound: sound,
+            #providesAppNotificationSettings: providesAppNotificationSettings,
           },
         ),
         returnValue: _i5.Future<_i3.NotificationSettings>.value(
@@ -206,6 +208,7 @@ class MockFirebaseMessaging extends _i1.Mock implements _i4.FirebaseMessaging {
               #criticalAlert: criticalAlert,
               #provisional: provisional,
               #sound: sound,
+              #providesAppNotificationSettings: providesAppNotificationSettings,
             },
           ),
         )),
@@ -223,6 +226,7 @@ class MockFirebaseMessaging extends _i1.Mock implements _i4.FirebaseMessaging {
               #criticalAlert: criticalAlert,
               #provisional: provisional,
               #sound: sound,
+              #providesAppNotificationSettings: providesAppNotificationSettings,
             },
           ),
         )),

@@ -4,7 +4,7 @@ part 'notification_data_payload.freezed.dart';
 part 'notification_data_payload.g.dart';
 
 @freezed
-class NotificationDataPayload with _$NotificationDataPayload {
+abstract class NotificationDataPayload with _$NotificationDataPayload {
   const factory NotificationDataPayload({
     String? notificationId,
     String? id,
@@ -19,17 +19,15 @@ class NotificationDataPayload with _$NotificationDataPayload {
     Map<String, dynamic>? payload,
   }) = _NotificationDataPayload;
 
-  factory NotificationDataPayload.fromJson(Map<String, dynamic> json) =>
-      _$NotificationDataPayloadFromJson(json);
+  factory NotificationDataPayload.fromJson(Map<String, dynamic> json) => _$NotificationDataPayloadFromJson(json);
 }
 
 @freezed
-class NotificationPayloadAction with _$NotificationPayloadAction {
+abstract class NotificationPayloadAction with _$NotificationPayloadAction {
   const factory NotificationPayloadAction({
     String? method,
     String? url,
   }) = _NotificationPayloadAction;
 
-  factory NotificationPayloadAction.fromJson(Map<String, dynamic> json) =>
-      _$NotificationPayloadActionFromJson(json);
+  factory NotificationPayloadAction.fromJson(Map<String, dynamic> json) => _$NotificationPayloadActionFromJson(json);
 }

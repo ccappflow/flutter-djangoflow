@@ -2,16 +2,15 @@ import 'package:analytics/analytics.dart';
 import 'package:flutter/foundation.dart';
 
 /// An [AnalyticService] that performs [AnalyticAction]s.
-class DjangoflowAnalytics extends AnalyticService<AnalyticAction> {
-  DjangoflowAnalytics._internal() : super();
+class DjangoflowAnalytics extends AnalyticService {
+  DjangoflowAnalytics._internal() : super.empty();
   static DjangoflowAnalytics get instance => _instance;
   static final DjangoflowAnalytics _instance = DjangoflowAnalytics._internal();
 
   bool _hasInitialized = false;
 
   @visibleForTesting
-  static DjangoflowAnalytics get testInstance =>
-      DjangoflowAnalytics._internal();
+  static DjangoflowAnalytics get testInstance => DjangoflowAnalytics._internal();
 
   void init() {
     _hasInitialized = true;
@@ -29,8 +28,9 @@ class DjangoflowAnalytics extends AnalyticService<AnalyticAction> {
   @override
   void performAction(AnalyticAction action) {
     if (hasInitialized) {
-      _getPerformersByAction(action)
-          .forEach((performer) => performer.perform(action));
+      for (final performer in _performers) {
+        performer.performAction(action);
+      }
     }
   }
 
@@ -39,18 +39,4 @@ class DjangoflowAnalytics extends AnalyticService<AnalyticAction> {
     List<AnalyticActionPerformer<AnalyticAction>> performers,
   ) =>
       _performers.addAll(performers);
-
-  List<AnalyticActionPerformer<AnalyticAction>> _getPerformersByAction(
-    AnalyticAction event,
-  ) {
-    final properPerformers =
-        _performers.where((performer) => performer.canHandle(event)).toList();
-    if (properPerformers.isEmpty) {
-      debugPrint(
-        'No action performer for action:'
-        ' ${event.runtimeType} in performers $_performers',
-      );
-    }
-    return properPerformers;
-  }
 }

@@ -8,22 +8,22 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  bloc: ^8.1.4
-  collection: ^1.18.0
-  dio: ^5.7.0
-  djangoflow_openapi: ^0.1.22
   flutter:
     sdk: flutter
-  freezed_annotation: ^2.4.4
-  hydrated_bloc: ^9.1.5
-  universal_html: ^2.2.4
-  uuid: ^4.5.1
+  bloc: any
+  collection: any
+  dio: any
+  djangoflow_openapi: any
+  freezed_annotation: any
+  hydrated_bloc: any
+  universal_html: any
+  uuid: any
 
 dev_dependencies:
-  build_runner: ^2.4.13
-  flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
-  freezed: ^2.5.7
-  json_serializable: ^6.9.0
-  mocktail: ^1.0.4
+  build_runner: any
+  flutter_lints: any
+  freezed: any
+  json_serializable: any
+  mocktail: any

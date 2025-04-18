@@ -7,12 +7,12 @@ environment:
   sdk: ">=3.4.4 <4.0.0"
 
 dependencies:
-  djangoflow_error_reporter: ^0.2.0
   flutter:
     sdk: flutter
-  sentry_flutter: ^8.11.0
+  sentry_flutter: any
+  djangoflow_error_reporter: any
 
 dev_dependencies:
-  flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
+  flutter_lints: any

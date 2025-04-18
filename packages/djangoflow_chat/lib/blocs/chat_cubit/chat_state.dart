@@ -5,7 +5,7 @@ part 'chat_state.freezed.dart';
 part 'chat_state.g.dart';
 
 @freezed
-class ChatState with _$ChatState {
+abstract class ChatState with _$ChatState {
   const factory ChatState({
     required int roomId,
     ChatRoom? room,
@@ -16,6 +16,5 @@ class ChatState with _$ChatState {
     // @Default(false) bool uploadingImage,
   }) = _ChatState;
 
-  factory ChatState.fromJson(Map<String, dynamic> json) =>
-      _$ChatStateFromJson(json);
+  factory ChatState.fromJson(Map<String, dynamic> json) => _$ChatStateFromJson(json);
 }

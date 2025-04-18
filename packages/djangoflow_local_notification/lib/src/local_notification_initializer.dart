@@ -16,16 +16,14 @@ class NotificationInitializer {
     this.requestCriticalPermission = false,
     this.requestSoundPermission = false,
   });
-  final DidReceiveBackgroundNotificationResponseCallback?
-      onDidReceiveBackgroundNotificationResponse;
+  final DidReceiveBackgroundNotificationResponseCallback? onDidReceiveBackgroundNotificationResponse;
   final bool requestAlertPermission;
   final bool requestBadgePermission;
   final bool requestCriticalPermission;
   final bool requestSoundPermission;
 
   FlutterLocalNotificationsPlugin? _flutterLocalNotificationsPlugin;
-  FlutterLocalNotificationsPlugin? get flutterLocalNotificationsPlugin =>
-      _flutterLocalNotificationsPlugin;
+  FlutterLocalNotificationsPlugin? get flutterLocalNotificationsPlugin => _flutterLocalNotificationsPlugin;
 
   bool _hasInitialized = false;
   bool get hasInitialized => _hasInitialized;
@@ -34,23 +32,19 @@ class NotificationInitializer {
     required List<PushActionCategory> pushActions,
     required String defaultAndroidNotificationIcon,
     bool? forceInitialize,
-    DidReceiveLocalNotificationCallback? onDidReceiveLocalNotification,
     DidReceiveNotificationResponseCallback? onDidReceiveNotificationResponse,
   }) async {
     if (!_hasInitialized || forceInitialize == true) {
       AndroidInitializationSettings initializationSettingsAndroid =
           AndroidInitializationSettings(defaultAndroidNotificationIcon);
-      final DarwinInitializationSettings initializationSettingsDarwin =
-          DarwinInitializationSettings(
+      final DarwinInitializationSettings initializationSettingsDarwin = DarwinInitializationSettings(
         notificationCategories: pushActions.toDarwinNotificationCategoryList(),
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification,
         requestAlertPermission: requestAlertPermission,
         requestBadgePermission: requestBadgePermission,
         requestCriticalPermission: requestCriticalPermission,
         requestSoundPermission: requestSoundPermission,
       );
-      final InitializationSettings initializationSettings =
-          InitializationSettings(
+      final InitializationSettings initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid,
         iOS: initializationSettingsDarwin,
       );
@@ -59,8 +53,7 @@ class NotificationInitializer {
         final result = await _flutterLocalNotificationsPlugin?.initialize(
           initializationSettings,
           onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
-          onDidReceiveBackgroundNotificationResponse:
-              onDidReceiveBackgroundNotificationResponse,
+          onDidReceiveBackgroundNotificationResponse: onDidReceiveBackgroundNotificationResponse,
         );
 
         _hasInitialized = result ?? false;
@@ -78,8 +71,7 @@ class NotificationInitializer {
     if (Platform.isIOS || Platform.isMacOS) {
       if (Platform.isIOS) {
         return await _flutterLocalNotificationsPlugin
-            ?.resolvePlatformSpecificImplementation<
-                IOSFlutterLocalNotificationsPlugin>()
+            ?.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
             ?.requestPermissions(
               alert: true,
               badge: true,
@@ -87,8 +79,7 @@ class NotificationInitializer {
             );
       } else {
         return await _flutterLocalNotificationsPlugin
-            ?.resolvePlatformSpecificImplementation<
-                MacOSFlutterLocalNotificationsPlugin>()
+            ?.resolvePlatformSpecificImplementation<MacOSFlutterLocalNotificationsPlugin>()
             ?.requestPermissions(
               alert: true,
               badge: true,
@@ -96,13 +87,10 @@ class NotificationInitializer {
             );
       }
     } else if (Platform.isAndroid) {
-      final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
-          _flutterLocalNotificationsPlugin
-              ?.resolvePlatformSpecificImplementation<
-                  AndroidFlutterLocalNotificationsPlugin>();
+      final AndroidFlutterLocalNotificationsPlugin? androidImplementation = _flutterLocalNotificationsPlugin
+          ?.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
 
-      final bool? grantedNotificationPermission =
-          await androidImplementation?.requestNotificationsPermission();
+      final bool? grantedNotificationPermission = await androidImplementation?.requestNotificationsPermission();
       return grantedNotificationPermission;
     }
     return null;

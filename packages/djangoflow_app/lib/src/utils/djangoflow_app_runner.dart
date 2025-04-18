@@ -52,15 +52,13 @@ class DjangoflowAppRunner {
           };
 
           final storage = await HydratedStorage.build(
-            storageDirectory: kIsWeb
-                ? HydratedStorage.webStorageDirectory
-                : await getTemporaryDirectory(),
+            storageDirectory:
+                kIsWeb ? HydratedStorageDirectory.web : HydratedStorageDirectory((await getTemporaryDirectory()).path),
           );
 
           HydratedBloc.storage = storage;
           Bloc.observer = BlocExceptionObserver(onException: onException);
-          final appbuilder =
-              await rootWidgetBuilder((appBuilder) => appBuilder);
+          final appbuilder = await rootWidgetBuilder((appBuilder) => appBuilder);
           if (appbuilder == null) {
             return;
           } else {

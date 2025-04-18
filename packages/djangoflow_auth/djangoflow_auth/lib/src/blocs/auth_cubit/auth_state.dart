@@ -6,22 +6,20 @@ part 'auth_state.g.dart';
 
 @Freezed(genericArgumentFactories: true, copyWith: true)
 sealed class AuthState with _$AuthState {
-  factory AuthState.fromJson(Map<String, dynamic> json) =>
-      _$AuthStateFromJson(json);
+  factory AuthState.fromJson(Map<String, dynamic> json) => _$AuthStateFromJson(json);
   const factory AuthState.initial() = _Initial;
-  const factory AuthState.authenticated({required String token}) =
-      _Authenticated;
+  const factory AuthState.authenticated({required String token}) = _Authenticated;
   const factory AuthState.unauthenticated() = _Unauthenticated;
 
   const AuthState._();
 
   bool get isAuthenticated => this is _Authenticated;
 
-  String? get token => map(
-        initial: (_) => null,
-        authenticated: (state) => state.token,
-        unauthenticated: (_) => null,
-      );
+  String? get token => switch (this) {
+        _Initial() => null,
+        _Authenticated(:final token) => token,
+        _Unauthenticated() => null,
+      };
 
   bool get isUnauthenticated => this is _Unauthenticated;
 
