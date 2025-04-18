@@ -11,10 +11,13 @@ dependencies:
   flutter:
     sdk: flutter
   bloc: any
-  djangoflow_bloc_extensions: any
   flutter_bloc: any
   freezed_annotation: any
   web_socket_channel: any
+  djangoflow_bloc_extensions:
+    git:
+      url: https://github.com/ccappflow/flutter-djangoflow
+      path: packages/djangoflow_bloc_extensions
 
 dev_dependencies:
   flutter_test:

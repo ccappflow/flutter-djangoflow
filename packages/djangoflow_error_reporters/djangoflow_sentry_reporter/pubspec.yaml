@@ -10,7 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
   sentry_flutter: any
-  djangoflow_error_reporter: any
+  djangoflow_error_reporter:
+    git:
+      url: https://github.com/ccappflow/flutter-djangoflow
+      path: packages/djangoflow_error_reporters/djangoflow_error_reporter
 
 dev_dependencies:
   flutter_test:

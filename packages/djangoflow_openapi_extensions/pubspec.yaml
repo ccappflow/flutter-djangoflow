@@ -2,6 +2,7 @@ name: djangoflow_openapi_extensions
 description: djangoflow_openapi_extensions is a Flutter package that empowers your Dio error handling in DjangoFlow OpenAPI projects with style and ease.
 version: 0.0.3+4
 homepage: https://github.com/djangoflow/flutter-djangoflow/tree/main/packages/djangoflow_openapi_extensions
+publish_to: none
 
 environment:
   sdk: ">=3.1.0 <4.0.0"
@@ -11,7 +12,10 @@ dependencies:
   flutter:
     sdk: flutter
   dio: any
-  djangoflow_openapi: any
+  djangoflow_openapi:
+    git:
+      url: https://github.com/ccappflow/flutter-djangoflow
+      path: packages/djangoflow_openapi
 
 dev_dependencies:
   flutter_test:

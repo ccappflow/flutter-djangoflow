@@ -13,11 +13,14 @@ dependencies:
   bloc: any
   collection: any
   dio: any
-  djangoflow_openapi: any
   freezed_annotation: any
   hydrated_bloc: any
   universal_html: any
   uuid: any
+  djangoflow_openapi:
+    git:
+      url: https://github.com/ccappflow/flutter-djangoflow
+      path: packages/djangoflow_openapi
 
 dev_dependencies:
   flutter_test:
