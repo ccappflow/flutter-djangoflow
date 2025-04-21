@@ -2,6 +2,7 @@ name: djangoflow_app_links
 description: A Djangoflow package that implements deep-link handling via app_links package.
 version: 3.0.1
 homepage: https://github.com/djangoflow/flutter-djangoflow/tree/main/packages/djangoflow_deep_link/djangoflow_app_links
+publish_to: none
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
@@ -9,7 +10,10 @@ environment:
 dependencies:
   app_links: any
   bloc_test: any
-  djangoflow_deep_link_interface: any
+  djangoflow_deep_link_interface:
+    git:
+      url: https://github.com/ccappflow/flutter-djangoflow
+      path: packages/djangoflow_deep_link/djangoflow_deep_link_interface
   flutter_bloc: any
   # To update check https://github.com/dart-lang/mockito/issues/812
   mockito: 5.4.4
