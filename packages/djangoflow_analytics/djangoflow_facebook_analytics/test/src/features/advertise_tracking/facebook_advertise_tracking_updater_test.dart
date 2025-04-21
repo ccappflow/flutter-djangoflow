@@ -6,8 +6,7 @@ import 'package:mockito/annotations.dart';
 
 import 'facebook_advertise_tracking_updater_test.mocks.dart';
 
-class TestFacebookAdvertiserTrackingEvent
-    implements FacebookAdvertiseTrackingEvent {
+class TestFacebookAdvertiserTrackingEvent implements FacebookAdvertiseTrackingEvent {
   TestFacebookAdvertiserTrackingEvent(this.isEnabled);
   final bool isEnabled;
 
@@ -27,15 +26,9 @@ void main() {
     event = TestFacebookAdvertiserTrackingEvent(true);
   });
 
-  test('canHandle() should return true for FacebookAdvertiseTrackingEvent', () {
-    expect(updater.canHandle(event), true);
-  });
-
   test('perform() should call setAdvertiserTracking with correct value', () {
-    when(mockFacebookAppEvents.setAdvertiserTracking(enabled: event.enabled))
-        .thenAnswer((_) => Future.value());
-    updater.perform(event);
-    verify(mockFacebookAppEvents.setAdvertiserTracking(enabled: event.enabled))
-        .called(1);
+    when(mockFacebookAppEvents.setAdvertiserTracking(enabled: event.enabled)).thenAnswer((_) => Future.value());
+    updater.performAction(event);
+    verify(mockFacebookAppEvents.setAdvertiserTracking(enabled: event.enabled)).called(1);
   });
 }

@@ -1,4 +1,3 @@
-import 'package:analytics/core/analytic_action.dart';
 import 'package:analytics/core/analytic_action_performer.dart';
 import 'package:djangoflow_facebook_analytics/src/configurations/constants.dart';
 import 'package:djangoflow_facebook_analytics/src/utils/utils.dart';
@@ -12,18 +11,24 @@ import 'package:djangoflow_facebook_analytics/src/feauteres/user_properties_upda
 /// - [kEmailKey] = 'email' -> setUserData({email: String?})
 /// - [kFirstNameKey] = 'first_name' -> setUserData({firstName: String?})
 /// - [kLastNameKey] = 'last_name' -> setUserData({lastName: String?})
-class FacebookUserPropertyUpdater
-    implements AnalyticActionPerformer<FacebookUpdatableUserProperty> {
+class FacebookUserPropertyUpdater implements AnalyticActionPerformer<FacebookUpdatableUserProperty> {
   FacebookUserPropertyUpdater(this._facebookAppEvents);
   final FacebookAppEvents _facebookAppEvents;
-  final FacebookUserPropertyTrimmer _userPropertyCutter =
-      FacebookUserPropertyTrimmer();
-  @override
-  bool canHandle(AnalyticAction action) =>
-      action is FacebookUpdatableUserProperty;
+  final FacebookUserPropertyTrimmer _userPropertyCutter = FacebookUserPropertyTrimmer();
+
+  String? _getValueForKey({
+    required String toComaprekey,
+    required String actionKey,
+    String? value,
+  }) =>
+      toComaprekey == actionKey
+          ? value != null
+              ? _userPropertyCutter.trimValue(value)
+              : value
+          : null;
 
   @override
-  void perform(FacebookUpdatableUserProperty action) {
+  void performAction(FacebookUpdatableUserProperty action) {
     if (action.key == kUserIdKey) {
       final userId = action.value;
       if (userId != null) {
@@ -49,15 +54,4 @@ class FacebookUserPropertyUpdater
       );
     }
   }
-
-  String? _getValueForKey({
-    required String toComaprekey,
-    required String actionKey,
-    String? value,
-  }) =>
-      toComaprekey == actionKey
-          ? value != null
-              ? _userPropertyCutter.trimValue(value)
-              : value
-          : null;
 }

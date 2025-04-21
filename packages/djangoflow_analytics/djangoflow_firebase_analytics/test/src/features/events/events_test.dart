@@ -29,14 +29,6 @@ void main() {
     eventSender = FirebaseAnalyticEventSender(mockFirebaseAnalytics);
   });
 
-  test('canHandle() should return true for TestFirebaseAnalyticsEvents', () {
-    const event = TestFirebaseAnalyticsEvents(
-      eventkey: 'testEvent',
-      eventParams: {'testParam': 'testValue'},
-    );
-    expect(eventSender.canHandle(event), true);
-  });
-
   test('perform() should call logEvent with correct value', () {
     const event = TestFirebaseAnalyticsEvents(
       eventkey: 'testEvent',
@@ -48,7 +40,7 @@ void main() {
         parameters: event.params.cast(),
       ),
     ).thenAnswer((_) => Future.value());
-    eventSender.perform(event);
+    eventSender.performAction(event);
     verify(
       mockFirebaseAnalytics.logEvent(
         name: event.key,
@@ -69,7 +61,7 @@ void main() {
         parameters: event.params.cast(),
       ),
     ).thenAnswer((_) => Future.value());
-    eventSender.perform(event);
+    eventSender.performAction(event);
     verifyNever(
       mockFirebaseAnalytics.logEvent(
         name: event.key,

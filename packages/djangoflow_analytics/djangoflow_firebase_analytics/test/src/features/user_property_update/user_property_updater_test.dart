@@ -14,11 +14,6 @@ void main() {
     userPropertyUpdater = FirebaseUserPropertyUpdater(mockFirebaseAnalytics);
   });
 
-  test('canHandle() should return true for FirebaseRemovableUserProperty', () {
-    final event = FirebaseUpdatableUserProperty('key', 'value');
-    expect(userPropertyUpdater.canHandle(event), true);
-  });
-
   test('perform() should call setUserId with correct value', () {
     final event = FirebaseUpdatableUserProperty(kUserIdKey, '1');
     when(
@@ -31,7 +26,7 @@ void main() {
       ),
     ).thenAnswer((_) => Future.value());
 
-    userPropertyUpdater.perform(event);
+    userPropertyUpdater.performAction(event);
     verify(
       mockFirebaseAnalytics.setUserId(id: event.value),
     ).called(1);
@@ -55,7 +50,7 @@ void main() {
         value: anyNamed('value'),
       ),
     ).thenAnswer((_) => Future.value());
-    userPropertyUpdater.perform(event);
+    userPropertyUpdater.performAction(event);
     verify(
       mockFirebaseAnalytics.setUserProperty(
         name: event.key,

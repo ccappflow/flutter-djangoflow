@@ -8,7 +8,7 @@ environment:
   sdk: ">=3.4.4 <4.0.0"
 
 dependencies:
-  analytics: any
+  analytics: ^2.0.3
   djangoflow_analytics:
     git:
       url: https://github.com/ccappflow/flutter-djangoflow

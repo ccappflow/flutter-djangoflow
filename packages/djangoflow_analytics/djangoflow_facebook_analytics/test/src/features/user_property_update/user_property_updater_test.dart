@@ -14,18 +14,13 @@ void main() {
     userPropertyUpdater = FacebookUserPropertyUpdater(mockFacebookAppEvents);
   });
 
-  test('canHandle() should return true for FacebookRemovableUserProperty', () {
-    final event = FacebookUpdatableUserProperty('key', 'value');
-    expect(userPropertyUpdater.canHandle(event), true);
-  });
-
   test('perform() should call setUserID with correct value', () {
     final event = FacebookUpdatableUserProperty(kUserIdKey, '1');
     when(
       mockFacebookAppEvents.setUserID(event.value),
     ).thenAnswer((_) => Future.value());
     when(mockFacebookAppEvents.setUserData()).thenAnswer((_) => Future.value());
-    userPropertyUpdater.perform(event);
+    userPropertyUpdater.performAction(event);
     verify(
       mockFacebookAppEvents.setUserID(event.value),
     ).called(1);
@@ -43,7 +38,7 @@ void main() {
         email: event.value,
       ),
     ).thenAnswer((_) => Future.value());
-    userPropertyUpdater.perform(event);
+    userPropertyUpdater.performAction(event);
     verify(
       mockFacebookAppEvents.setUserData(email: event.value),
     ).called(1);
@@ -61,7 +56,7 @@ void main() {
         firstName: event.value,
       ),
     ).thenAnswer((_) => Future.value());
-    userPropertyUpdater.perform(event);
+    userPropertyUpdater.performAction(event);
     verify(
       mockFacebookAppEvents.setUserData(firstName: event.value),
     ).called(1);
@@ -79,7 +74,7 @@ void main() {
         lastName: event.value,
       ),
     ).thenAnswer((_) => Future.value());
-    userPropertyUpdater.perform(event);
+    userPropertyUpdater.performAction(event);
     verify(
       mockFacebookAppEvents.setUserData(lastName: event.value),
     ).called(1);

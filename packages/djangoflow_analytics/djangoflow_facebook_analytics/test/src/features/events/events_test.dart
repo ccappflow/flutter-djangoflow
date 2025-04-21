@@ -34,15 +34,6 @@ void main() {
     eventSender = FacebookAnalyticEventSender(mockFacebookAppEvents);
   });
 
-  test('canHandle() should return true for TestFacebookAnalyticsEvents', () {
-    const event = TestFacebookAnalyticsEvents(
-      eventkey: 'testEvent',
-      eventParams: {'testParam': 'testValue'},
-      eventValueToSum: 1.0,
-    );
-    expect(eventSender.canHandle(event), true);
-  });
-
   test('perform() should call logEvent with correct value', () {
     const event = TestFacebookAnalyticsEvents(
       eventkey: 'testEvent',
@@ -56,7 +47,7 @@ void main() {
         valueToSum: event.valueToSum,
       ),
     ).thenAnswer((_) => Future.value());
-    eventSender.perform(event);
+    eventSender.performAction(event);
     verify(
       mockFacebookAppEvents.logEvent(
         name: event.key,
@@ -80,7 +71,7 @@ void main() {
         valueToSum: event.valueToSum,
       ),
     ).thenAnswer((_) => Future.value());
-    eventSender.perform(event);
+    eventSender.performAction(event);
     verifyNever(
       mockFacebookAppEvents.logEvent(
         name: event.key,

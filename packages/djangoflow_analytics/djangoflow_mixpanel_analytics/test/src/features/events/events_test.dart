@@ -29,14 +29,6 @@ void main() {
     eventSender = MixpanelAnalyticEventSender(mockMixpanelAnalytics);
   });
 
-  test('canHandle() should return true for TestMixpanelAnalyticsEvents', () {
-    const event = TestMixpanelAnalyticsEvents(
-      eventkey: 'testEvent',
-      eventParams: {'testParam': 'testValue'},
-    );
-    expect(eventSender.canHandle(event), true);
-  });
-
   test('perform() should call track with correct value', () {
     const event = TestMixpanelAnalyticsEvents(
       eventkey: 'testEvent',
@@ -48,7 +40,7 @@ void main() {
         properties: event.params,
       ),
     ).thenAnswer((_) => Future.value());
-    eventSender.perform(event);
+    eventSender.performAction(event);
     verify(
       mockMixpanelAnalytics.track(
         event.key,
@@ -69,7 +61,7 @@ void main() {
         properties: event.params,
       ),
     ).thenAnswer((_) => Future.value());
-    eventSender.perform(event);
+    eventSender.performAction(event);
     verifyNever(
       mockMixpanelAnalytics.track(
         event.key,
