@@ -7,36 +7,14 @@ class DjangoflowAnalytics extends AnalyticService {
   static DjangoflowAnalytics get instance => _instance;
   static final DjangoflowAnalytics _instance = DjangoflowAnalytics._internal();
 
-  bool _hasInitialized = false;
-
   @visibleForTesting
   static DjangoflowAnalytics get testInstance => DjangoflowAnalytics._internal();
 
-  void init() {
-    _hasInitialized = true;
-  }
-
-  final _performers = <AnalyticActionPerformer<AnalyticAction>>{};
-
-  /// Returns true if the DjangoflowAnalytics has been initialized.
-  bool get hasInitialized => _hasInitialized;
+  final _strategies = <AnalyticStrategy<AnalyticAction>>{};
 
   /// Returns a list of all the performers.
-  List<AnalyticActionPerformer> get performers => _performers.toList();
-
-  /// Perform [action] with all the performers.
-  @override
-  void performAction(AnalyticAction action) {
-    if (hasInitialized) {
-      for (final performer in _performers) {
-        performer.performAction(action);
-      }
-    }
-  }
+  List<AnalyticStrategy> get performers => _strategies.toList();
 
   /// Add [performer]s to the service.
-  void addAllActionPerformers(
-    List<AnalyticActionPerformer<AnalyticAction>> performers,
-  ) =>
-      _performers.addAll(performers);
+  void addAllStrategies(List<AnalyticStrategy<AnalyticAction>> strategies) => _strategies.addAll(strategies);
 }

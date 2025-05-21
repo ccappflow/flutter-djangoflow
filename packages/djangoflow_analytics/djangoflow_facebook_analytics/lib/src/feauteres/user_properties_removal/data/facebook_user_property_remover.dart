@@ -1,9 +1,9 @@
-import 'package:analytics/core/analytic_action_performer.dart';
+import 'package:analytics/analytics.dart';
 import 'package:facebook_app_events/facebook_app_events.dart';
 
 import 'package:djangoflow_facebook_analytics/src/feauteres/user_properties_removal/data/facebook_removable_user_property.dart';
 
-class FacebookUserPropertyRemover implements AnalyticActionPerformer<FacebookRemovableUserProperty> {
+class FacebookUserPropertyRemover extends AnalyticStrategy<FacebookRemovableUserProperty> {
   FacebookUserPropertyRemover(this._facebookAppEvents);
   final FacebookAppEvents _facebookAppEvents;
 

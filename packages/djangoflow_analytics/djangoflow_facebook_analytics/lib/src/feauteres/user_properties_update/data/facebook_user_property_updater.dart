@@ -1,4 +1,4 @@
-import 'package:analytics/core/analytic_action_performer.dart';
+import 'package:analytics/analytics.dart';
 import 'package:djangoflow_facebook_analytics/src/configurations/constants.dart';
 import 'package:djangoflow_facebook_analytics/src/utils/utils.dart';
 import 'package:facebook_app_events/facebook_app_events.dart';
@@ -11,7 +11,7 @@ import 'package:djangoflow_facebook_analytics/src/feauteres/user_properties_upda
 /// - [kEmailKey] = 'email' -> setUserData({email: String?})
 /// - [kFirstNameKey] = 'first_name' -> setUserData({firstName: String?})
 /// - [kLastNameKey] = 'last_name' -> setUserData({lastName: String?})
-class FacebookUserPropertyUpdater implements AnalyticActionPerformer<FacebookUpdatableUserProperty> {
+class FacebookUserPropertyUpdater extends AnalyticStrategy<FacebookUpdatableUserProperty> {
   FacebookUserPropertyUpdater(this._facebookAppEvents);
   final FacebookAppEvents _facebookAppEvents;
   final FacebookUserPropertyTrimmer _userPropertyCutter = FacebookUserPropertyTrimmer();

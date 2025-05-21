@@ -4,7 +4,7 @@ import 'package:djangoflow_mixpanel_analytics/src/utils/utils.dart';
 
 import 'package:djangoflow_mixpanel_analytics/src/features/events/data/mixpanel_analyics_event.dart';
 
-class MixpanelAnalyticEventSender implements AnalyticActionPerformer<MixpanelAnalyticsEvent> {
+class MixpanelAnalyticEventSender extends AnalyticStrategy<MixpanelAnalyticsEvent> {
   MixpanelAnalyticEventSender(this._mixpanel);
   final Mixpanel _mixpanel;
   final MixpanelEventTrimmer _eventTrimmer = MixpanelEventTrimmer();

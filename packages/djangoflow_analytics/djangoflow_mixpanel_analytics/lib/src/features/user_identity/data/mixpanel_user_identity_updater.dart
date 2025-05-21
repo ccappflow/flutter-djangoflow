@@ -1,8 +1,8 @@
-import 'package:analytics/core/analytic_action_performer.dart';
+import 'package:analytics/analytics.dart';
 import 'package:djangoflow_mixpanel_analytics/djangoflow_mixpanel_analytics.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 
-class MixpanelUserIdentityUpdater implements AnalyticActionPerformer<UpdateMixpanelUserIdentity> {
+class MixpanelUserIdentityUpdater extends AnalyticStrategy<UpdateMixpanelUserIdentity> {
   MixpanelUserIdentityUpdater(this._mixpanel);
   final Mixpanel _mixpanel;
 

@@ -1,10 +1,10 @@
-import 'package:analytics/core/analytic_action_performer.dart';
+import 'package:analytics/core/analytic_strategy.dart';
 import 'package:djangoflow_mixpanel_analytics/src/utils/utils.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 
 import 'package:djangoflow_mixpanel_analytics/src/features/user_properties_update/data/mixpanel_updatable_user_property.dart';
 
-class MixpanelUserPropertyUpdater implements AnalyticActionPerformer<MixpanelUpdatableUserProperty> {
+class MixpanelUserPropertyUpdater extends AnalyticStrategy<MixpanelUpdatableUserProperty> {
   MixpanelUserPropertyUpdater(this._mixpanel);
   final Mixpanel _mixpanel;
   final MixpanelUserPropertyCutter _userPropertyCutter = MixpanelUserPropertyCutter();
