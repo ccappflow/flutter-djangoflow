@@ -5,17 +5,13 @@ class DjangoflowFCMRepository {
   final FirebaseMessaging _messaging;
   final String? vapidKey;
 
-  Stream<RemoteMessage> getForegroundRemoteMessageStream() =>
-      FirebaseMessaging.onMessage;
+  Stream<RemoteMessage> getForegroundRemoteMessageStream() => FirebaseMessaging.onMessage;
 
-  Future<RemoteMessage?> getInitialRemoteMessage() =>
-      _messaging.getInitialMessage();
+  Future<RemoteMessage?> getInitialRemoteMessage() => _messaging.getInitialMessage();
 
-  Stream<RemoteMessage> getBackgroundRemoteMessageTappedStream() =>
-      FirebaseMessaging.onMessageOpenedApp;
+  Stream<RemoteMessage> getBackgroundRemoteMessageTappedStream() => FirebaseMessaging.onMessageOpenedApp;
 
-  Future<NotificationSettings> requestNotificationPermission() =>
-      _messaging.requestPermission(
+  Future<NotificationSettings> requestNotificationPermission() => _messaging.requestPermission(
         alert: true,
         announcement: false,
         badge: true,
@@ -25,6 +21,8 @@ class DjangoflowFCMRepository {
         sound: true,
       );
 
+  Stream<String> onTokenRefresh() => _messaging.onTokenRefresh;
+
   Future<String?> getToken() => _messaging.getToken(vapidKey: vapidKey);
 
   Stream<String> getTokenUpdateStream() => _messaging.onTokenRefresh;
@@ -33,6 +31,5 @@ class DjangoflowFCMRepository {
 
   Future<bool> isSupported() => _messaging.isSupported();
 
-  Future<NotificationSettings> getNotificationSettings() =>
-      _messaging.getNotificationSettings();
+  Future<NotificationSettings> getNotificationSettings() => _messaging.getNotificationSettings();
 }

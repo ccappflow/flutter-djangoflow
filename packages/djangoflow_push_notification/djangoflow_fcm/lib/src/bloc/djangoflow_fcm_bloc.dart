@@ -18,22 +18,20 @@ class DjangoflowFCMBloc extends Bloc<DjangoflowFCMEvent, DjangoflowFCMState> {
     on<DjangoflowFCMInitialMessageRequested>(_getIntiailMessage);
     on<DjangoflowFCMDeletePushToken>(_deletePushToken);
 
-    _foregroundRemoteMessageSubscription =
-        repository.getForegroundRemoteMessageStream().listen(_onMessage);
+    _foregroundRemoteMessageSubscription = repository.getForegroundRemoteMessageStream().listen(_onMessage);
 
-    _backroundRemoteMessageTappedSubscription =
-        repository.getBackgroundRemoteMessageTappedStream().listen(
-              (event) => _onMessage(
-                event,
-                remoteMessageOpenedApp: true,
-              ),
-            );
+    _backroundRemoteMessageTappedSubscription = repository.getBackgroundRemoteMessageTappedStream().listen(
+          (event) => _onMessage(
+            event,
+            remoteMessageOpenedApp: true,
+          ),
+        );
   }
   final DjangoflowFCMRepository repository;
 
   late StreamSubscription<RemoteMessage> _foregroundRemoteMessageSubscription;
-  late StreamSubscription<RemoteMessage>
-      _backroundRemoteMessageTappedSubscription;
+  late StreamSubscription<RemoteMessage> _backroundRemoteMessageTappedSubscription;
+  StreamSubscription<String>? _onTokenRefreshSubscription;
 
   void _onMessageReceived(
     DjangoflowFCMOnMessageReceived event,
@@ -62,25 +60,29 @@ class DjangoflowFCMBloc extends Bloc<DjangoflowFCMEvent, DjangoflowFCMState> {
     Emitter<DjangoflowFCMState> emit,
   ) async {
     final isSupported = await repository.isSupported();
-    if (isSupported) {
-      AuthorizationStatus authorizationStatus;
-      final settings = await repository.getNotificationSettings();
-      authorizationStatus = settings.authorizationStatus;
-      if (settings.authorizationStatus != AuthorizationStatus.authorized) {
-        final permission = await repository.requestNotificationPermission();
-        authorizationStatus = permission.authorizationStatus;
-      }
+    if (!isSupported) {
+      return;
+    }
+    AuthorizationStatus authorizationStatus;
+    final settings = await repository.getNotificationSettings();
+    authorizationStatus = settings.authorizationStatus;
 
-      if (authorizationStatus == AuthorizationStatus.authorized) {
-        final token = await repository.getToken();
-        add(DjangoflowFCMOnTokenReceived(token));
-      } else {
-        emit(
-          state.copyWith(
-            notificationAuthorizationStatus: authorizationStatus,
-          ),
-        );
-      }
+    if (settings.authorizationStatus != AuthorizationStatus.authorized) {
+      final permission = await repository.requestNotificationPermission();
+      authorizationStatus = permission.authorizationStatus;
+    }
+
+    if (authorizationStatus == AuthorizationStatus.authorized) {
+      final token = await repository.getToken();
+      _onTokenRefreshSubscription ??= repository.onTokenRefresh().listen(_onTokenRefresh);
+      add(DjangoflowFCMOnTokenReceived(token));
+    } else {
+      _cancelTokenSubscription();
+      emit(
+        state.copyWith(
+          notificationAuthorizationStatus: authorizationStatus,
+        ),
+      );
     }
   }
 
@@ -118,19 +120,28 @@ class DjangoflowFCMBloc extends Bloc<DjangoflowFCMEvent, DjangoflowFCMState> {
       final permission = await repository.requestNotificationPermission();
       if (permission.authorizationStatus == AuthorizationStatus.authorized) {
         await repository.deleteToken();
+        _cancelTokenSubscription();
         emit(
-          state.copyWith(
-            token: null,
-          ),
+          state.copyWith(token: null),
         );
       }
     }
+  }
+
+  void _onTokenRefresh(String token) {
+    add(DjangoflowFCMOnTokenReceived(token));
+  }
+
+  void _cancelTokenSubscription() {
+    _onTokenRefreshSubscription?.cancel();
+    _onTokenRefreshSubscription = null;
   }
 
   @override
   Future<void> close() async {
     _foregroundRemoteMessageSubscription.cancel();
     _backroundRemoteMessageTappedSubscription.cancel();
+    _onTokenRefreshSubscription?.cancel();
     super.close();
   }
 }
