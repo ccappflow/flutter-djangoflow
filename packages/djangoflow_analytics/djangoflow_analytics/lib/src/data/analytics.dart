@@ -10,11 +10,9 @@ class DjangoflowAnalytics extends AnalyticService {
   @visibleForTesting
   static DjangoflowAnalytics get testInstance => DjangoflowAnalytics._internal();
 
-  final _strategies = <AnalyticStrategy<AnalyticAction>>{};
-
-  /// Returns a list of all the performers.
-  List<AnalyticStrategy> get performers => _strategies.toList();
-
-  /// Add [performer]s to the service.
-  void addAllStrategies(List<AnalyticStrategy<AnalyticAction>> strategies) => _strategies.addAll(strategies);
+  void addAllStrategies(List<AnalyticStrategy<AnalyticAction>> strategies) {
+    for (final s in strategies) {
+      addStrategy(s);
+    }
+  }
 }
