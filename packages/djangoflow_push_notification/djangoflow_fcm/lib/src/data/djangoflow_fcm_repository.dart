@@ -7,9 +7,6 @@ class DjangoflowFCMRepository {
 
   Stream<RemoteMessage> getForegroundRemoteMessageStream() => FirebaseMessaging.onMessage;
 
-  void setBackgroundRemoteMessageHandler(Future<void> Function(RemoteMessage) onRemoteMessage) =>
-      FirebaseMessaging.onBackgroundMessage;
-
   Future<RemoteMessage?> getInitialRemoteMessage() => _messaging.getInitialMessage();
 
   Stream<RemoteMessage> getBackgroundRemoteMessageTappedStream() => FirebaseMessaging.onMessageOpenedApp;
