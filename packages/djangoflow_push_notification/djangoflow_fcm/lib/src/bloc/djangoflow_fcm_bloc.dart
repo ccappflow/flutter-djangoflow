@@ -20,6 +20,10 @@ class DjangoflowFCMBloc extends Bloc<DjangoflowFCMEvent, DjangoflowFCMState> {
 
     _foregroundRemoteMessageSubscription = repository.getForegroundRemoteMessageStream().listen(_onMessage);
 
+    repository.setBackgroundRemoteMessageHandler(
+      (event) async => _onMessage(event, remoteMessageOpenedApp: true),
+    );
+
     _backroundRemoteMessageTappedSubscription = repository.getBackgroundRemoteMessageTappedStream().listen(
           (event) => _onMessage(
             event,
