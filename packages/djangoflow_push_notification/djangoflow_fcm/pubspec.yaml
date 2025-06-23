@@ -17,8 +17,7 @@ dependencies:
   flutter_bloc: any
   freezed_annotation: any
   json_annotation: any
-  # To update check https://github.com/dart-lang/mockito/issues/812
-  mockito: 5.4.4
+  mockito: any
 
 dev_dependencies:
   flutter_test:

@@ -15,8 +15,7 @@ dependencies:
       url: https://github.com/ccappflow/flutter-djangoflow
       path: packages/djangoflow_deep_link/djangoflow_deep_link_interface
   flutter_bloc: any
-  # To update check https://github.com/dart-lang/mockito/issues/812
-  mockito: 5.4.4
+  mockito: any
 
 dev_dependencies:
   flutter_test:

@@ -19,5 +19,4 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  # To update check https://github.com/dart-lang/mockito/issues/812
-  mockito: 5.4.4
+  mockito: any

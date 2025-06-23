@@ -11,8 +11,7 @@ dependencies:
     sdk: flutter
   bloc_test: any
   flutter_bloc: any
-  # To update check https://github.com/dart-lang/mockito/issues/812
-  mockito: 5.4.4
+  mockito: any
 
 dev_dependencies:
   flutter_test:
